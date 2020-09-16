@@ -5,6 +5,7 @@ import com.rpovlsen.webshopapi.auth.exceptions.NotAuthorizedException;
 import com.rpovlsen.webshopapi.auth.service.AuthService;
 import com.rpovlsen.webshopapi.auth.service.IAuthService;
 import com.rpovlsen.webshopapi.user.User;
+import com.rpovlsen.webshopapi.user.entity.IUser;
 import com.rpovlsen.webshopapi.user.exceptions.UsernameTakenException;
 import com.rpovlsen.webshopapi.user.repository.IUserRepository;
 import com.rpovlsen.webshopapi.user.service.IUserService;
@@ -58,7 +59,7 @@ public class AuthController
         JSONObject resp = new JSONObject();
         try
         {
-            User user = this.userService.createUser(userDTO);
+            IUser user = this.userService.createUser(userDTO);
             if (user == null)
             {
                 resp.put("error", "User could not be created!");

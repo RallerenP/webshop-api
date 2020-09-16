@@ -2,6 +2,7 @@ package com.rpovlsen.webshopapi.user.repository;
 
 import com.rpovlsen.webshopapi.auth.dto.UserDTO;
 import com.rpovlsen.webshopapi.user.User;
+import com.rpovlsen.webshopapi.user.entity.IUser;
 import com.rpovlsen.webshopapi.user.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,7 +29,7 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public User create(UserDTO userDTO)
+    public IUser create(UserDTO userDTO)
     {
         String SQL = "INSERT INTO users (username, password) VALUES (?,?)";
         KeyHolder kh = new GeneratedKeyHolder();
@@ -68,7 +69,7 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public User getById(int id) throws UserNotFoundException
+    public IUser getById(int id) throws UserNotFoundException
     {
         String SQL = "SELECT * FROM users WHERE id = ?";
         SqlRowSet result = template.queryForRowSet(SQL, id);
@@ -84,7 +85,7 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public User findOne(String col, int search) throws UserNotFoundException {
+    public IUser findOne(String col, int search) throws UserNotFoundException {
         String SQL = "SELECT * FROM users WHERE "+ col + " = ?";
         SqlRowSet result = template.queryForRowSet(SQL, col, search);
 
@@ -99,7 +100,7 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public User findOne(String col, String search) throws UserNotFoundException {
+    public IUser findOne(String col, String search) throws UserNotFoundException {
         String SQL = "SELECT * FROM users WHERE "+ col + " = ?";
         SqlRowSet result = template.queryForRowSet(SQL, search);
 
@@ -114,11 +115,11 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public List<User> find() {
+    public List<IUser> find() {
         String SQL = "SELECT * FROM users";
         SqlRowSet result = template.queryForRowSet(SQL);
 
-        List<User> users = new ArrayList<>();
+        List<IUser> users = new ArrayList<>();
 
         while (result.next()) users.add(load(result));
 
@@ -126,23 +127,23 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public List<User> find(String col, int search) {
+    public List<IUser> find(String col, int search) {
         String SQL = "SELECT * FROM users WHERE ? = ?";
         SqlRowSet result = template.queryForRowSet(SQL, col, search);
 
-        List<User> users = new ArrayList<>();
+        List<IUser> users = new ArrayList<>();
 
         while (result.next()) users.add(load(result));
 
         return users;
     }
 
-    public List<User> find(String col, String search)
+    public List<IUser> find(String col, String search)
     {
         String SQL = "SELECT * FROM users WHERE "+ col + " = ?";
         SqlRowSet result = template.queryForRowSet(SQL, col, search);
 
-        List<User> users = new ArrayList<>();
+        List<IUser> users = new ArrayList<>();
 
         while (result.next()) users.add(load(result));
 
@@ -150,7 +151,7 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public User update(int id, UserDTO userDTO) throws UserNotFoundException
+    public IUser update(int id, UserDTO userDTO) throws UserNotFoundException
     {
         getById(id); // To propagate UserNotFoundException. We don't actually need to save.
 
@@ -176,7 +177,7 @@ public class UserRepository implements IUserRepository
         }
     }
 
-    public User load(SqlRowSet rowset)
+    public IUser load(SqlRowSet rowset)
     {
         User u = new User(rowset.getInt("id"));
         u.setUsername(rowset.getString("username"));

@@ -2,6 +2,7 @@ package com.rpovlsen.webshopapi.user;
 
 import com.rpovlsen.webshopapi.auth.service.IAuthService;
 import com.rpovlsen.webshopapi.user.annotations.GetUser;
+import com.rpovlsen.webshopapi.user.entity.IUser;
 import com.rpovlsen.webshopapi.user.exceptions.UserNotFoundException;
 import com.rpovlsen.webshopapi.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class GetUserResolver implements HandlerMethodArgumentResolver
     }
 
     @Override
-    public User resolveArgument(MethodParameter parameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+    public IUser resolveArgument(MethodParameter parameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         GetUser getUser = parameter.getParameterAnnotation(GetUser.class);
 
         // If empty, get the logged in user, by the token.

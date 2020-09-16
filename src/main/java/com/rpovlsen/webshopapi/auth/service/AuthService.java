@@ -4,6 +4,7 @@ import com.rpovlsen.webshopapi.auth.dto.UserDTO;
 import com.rpovlsen.webshopapi.auth.exceptions.NotAuthorizedException;
 import com.rpovlsen.webshopapi.auth.jwt.JwtTokenUtil;
 import com.rpovlsen.webshopapi.user.User;
+import com.rpovlsen.webshopapi.user.entity.IUser;
 import com.rpovlsen.webshopapi.user.service.UserService;
 import com.rpovlsen.webshopapi.user.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class AuthService implements IAuthService
 
         try
         {
-            User entity = this.userService.getUserByUsername(userDTO.getUsername());
+            IUser entity = this.userService.getUserByUsername(userDTO.getUsername());
 
             if (entity.getPassword().equals(password))
                 return jwtTokenUtil.genToken(new HashMap<>(), username); // Empty HashMap for now, we don't have additional claims to register

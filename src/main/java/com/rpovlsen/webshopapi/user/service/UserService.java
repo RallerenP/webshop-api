@@ -2,6 +2,7 @@ package com.rpovlsen.webshopapi.user.service;
 
 import com.rpovlsen.webshopapi.auth.dto.UserDTO;
 import com.rpovlsen.webshopapi.user.User;
+import com.rpovlsen.webshopapi.user.entity.IUser;
 import com.rpovlsen.webshopapi.user.exceptions.UserNotFoundException;
 import com.rpovlsen.webshopapi.user.exceptions.UsernameTakenException;
 import com.rpovlsen.webshopapi.user.repository.IUserRepository;
@@ -24,13 +25,13 @@ public class UserService implements IUserService
         this.userRepository = userRepository;
     }
 
-    public User getUserByUsername(String username) throws UserNotFoundException
+    public IUser getUserByUsername(String username) throws UserNotFoundException
     {
         return this.userRepository.findOne("username", username);
     }
 
     @Override
-    public User createUser(UserDTO userDTO) throws UsernameTakenException
+    public IUser createUser(UserDTO userDTO) throws UsernameTakenException
     {
         try
         {
@@ -45,7 +46,7 @@ public class UserService implements IUserService
     }
 
     @Override
-    public User updateUser(UserDTO userDTO, User user)
+    public IUser updateUser(UserDTO userDTO, User user)
             throws UsernameTakenException, UserNotFoundException
     {
         try
@@ -60,7 +61,7 @@ public class UserService implements IUserService
     }
 
     @Override
-    public User getUserById(int id) throws UserNotFoundException {
+    public IUser getUserById(int id) throws UserNotFoundException {
         return this.userRepository.getById(id);
     }
 }

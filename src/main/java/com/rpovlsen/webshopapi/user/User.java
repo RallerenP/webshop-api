@@ -1,6 +1,8 @@
 package com.rpovlsen.webshopapi.user;
 
-public class User
+import com.rpovlsen.webshopapi.user.entity.IUser;
+
+public class User implements IUser
 {
     private String username;
     private String password;
