@@ -1,5 +1,7 @@
 package com.rpovlsen.webshopapi.product.entity;
 
+import org.json.JSONObject;
+
 public interface IProduct
 {
     int getId();
@@ -12,4 +14,8 @@ public interface IProduct
 
     double getPrice();
     void setPrice(double price);
+
+    JSONObject toJSON();
+
+    boolean equals(Object o);
 }

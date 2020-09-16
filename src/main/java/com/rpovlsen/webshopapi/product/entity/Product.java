@@ -1,5 +1,9 @@
 package com.rpovlsen.webshopapi.product.entity;
 
+import org.json.JSONObject;
+
+import java.util.Objects;
+
 public class Product implements IProduct
 {
     private String name;
@@ -47,5 +51,26 @@ public class Product implements IProduct
         this.price = price;
     }
 
+    @Override
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("price", price);
+        json.put("id", id);
+        json.put("code", productCode);
+        return json;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
